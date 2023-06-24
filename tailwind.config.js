@@ -18,6 +18,8 @@ module.exports = {
         grey: "#5a645f",
         smoothGrey: "#9d9d9d",
         myBlack: "#04170d",
+        lightWhite: "#fafafa",
+        borderColor: "#f8f8f9",
       },
     },
   },
