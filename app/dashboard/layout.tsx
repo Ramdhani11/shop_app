@@ -1,21 +1,21 @@
-import { Sidebar } from "@/components";
+"use client";
+import { Navbar, Sidebar } from "@/components";
+import { dataSidebar } from "@/constant";
+import { usePathname } from "next/navigation";
 
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const pathName = usePathname();
+  const datasSidebar = dataSidebar;
+
   return (
     <div className="w-screen h-screen bg-lightWhite flex flex-row">
-      <Sidebar />
+      <Sidebar path={pathName} datasSidebar={datasSidebar} />
       <section className="w-[80vw] h-screen">
-        <nav className="h-[10vh] bg-white flex flex-row px-6 justify-between items-center border-bottom-[1px]">
-          <h1>Dashboard</h1>
-          <div className="flex flex-row items-center">
-            <div className="w-[30px] h-[30px] rounded-[50%] bg-red-200 mr-2" />
-            <h2>Hai</h2>
-          </div>
-        </nav>
+        <Navbar path={pathName} />
         {children}
       </section>
     </div>
