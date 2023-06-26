@@ -3,7 +3,7 @@
 import React, { useState, MouseEvent, useEffect } from "react";
 import { BiSearchAlt2 } from "react-icons/bi";
 import { LuPackagePlus } from "react-icons/lu";
-import { Modal, ModalDelete } from "@/components";
+import { Modal, ModalDelete, TableItem } from "@/components";
 import { dummyData } from "@/constant";
 import { DataDummy } from "@/types";
 
@@ -12,9 +12,10 @@ const page = () => {
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const [datas, setDatas] = useState<DataDummy[]>([]);
 
-  const deleteHandler = (e: MouseEvent) => {
+  const deleteHandler = (e: MouseEvent,id: number) => {
     e.preventDefault();
-    setDeleteModal(!deleteModal);
+    alert(id)
+    
   };
 
   const modalHandler = (e: MouseEvent) => {
@@ -64,44 +65,9 @@ const page = () => {
             </tr>
           </thead>
           <tbody className="w-full">
-            <tr className="border-b-[2px] border-borderColor">
-              <td className="px-8 py-4 font-custom-medium text-[14px] ">
-                Lorem ipsum dolor sit amet,
-              </td>
-              <td className="px-8 py-4"></td>
-              <td className="px-8 py-4 font-custom-medium text-[14px]">
-                Rp. 12.000
-              </td>
-              <td className="px-8 py-4 font-custom-medium text-[14px]">
-                Rp. 15.000
-              </td>
-              <td className="px-8 py-4 font-custom-medium text-[14px]">123</td>
-              <td className="px-8 py-4 font-custom-medium text-[14px]">
-                <button
-                  type="button"
-                  onClick={deleteHandler}
-                  className="bg-[#ffe9e4] text-[#e91c4d] font-custom-medium py-1 px-5 text-[14px] rounded-sm mr-[10px]"
-                >
-                  Hapus
-                </button>
-              </td>
-            </tr>
-            <tr className="border-b-[2px] border-borderColor">
-              <td className="px-8 py-4 font-custom-medium text-[14px] ">
-                Lorem ipsum dolor sit amet,
-              </td>
-              <td className="px-8 py-4"></td>
-              <td className="px-8 py-4 font-custom-medium text-[14px]">
-                Rp. 12.000
-              </td>
-              <td className="px-8 py-4 font-custom-medium text-[14px]">
-                Rp. 15.000
-              </td>
-              <td className="px-8 py-4 font-custom-medium text-[14px]">123</td>
-              <td className="px-8 py-4 font-custom-medium text-[14px]">
-                Delete
-              </td>
-            </tr>
+            {datas.map((data) => {
+              return <TableItem deleteHandler={deleteHandler} data={data} />;
+            })}
           </tbody>
         </table>
         <div className="border-t-[2px] border-borderColor p-[20px] bg-white w-full flex justify-between items-center absolute bottom-0">
