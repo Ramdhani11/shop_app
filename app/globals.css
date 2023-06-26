@@ -143,8 +143,18 @@
   @apply flex justify-center items-center;
 }
 
+.font-custom-bold {
+  font-family: "Satoshi-Bold";
+}
+.font-custom-medium {
+  font-family: "Satoshi-Medium";
+}
 /* Login */
 
 .login {
   @apply bg-[#f1ffee] w-screen h-screen;
+}
+
+.login__form-focus {
+  @apply border-primary;
 }
