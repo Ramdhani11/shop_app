@@ -16,3 +16,11 @@ export interface DataSidebar {
   iconActive: IconType;
   icon: IconType;
 }
+
+export interface DataDummy {
+  id: number;
+  namaBarang: string;
+  hargaBeli: number;
+  hargaJual: number;
+  stok: number;
+}

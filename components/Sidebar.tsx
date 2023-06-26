@@ -9,16 +9,20 @@ const Sidebar = ({ path, datasSidebar }: SidebarProps) => {
       <ul>
         {datasSidebar.map((data) => {
           const activePath = path === data.path;
-
+          const activeIcon = activePath ? (
+            <data.iconActive className="mr-2" />
+          ) : (
+            <data.icon className="mr-2" />
+          );
           return (
             <li key={data.id}>
               <Link
                 href={data.path}
-                className={`flex flex-row ${
+                className={`flex flex-row font-custom-medium ${
                   activePath ? "bg-secondary text-primary" : null
                 } hover:text-primary mb-2 p-2 items-center`}
               >
-                {<data.icon className="mr-2" />} {data.title}
+                {activeIcon} {data.title}
               </Link>
             </li>
           );

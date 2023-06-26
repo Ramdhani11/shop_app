@@ -4,7 +4,7 @@ import React from "react";
 
 const page = () => {
   return (
-    <div className="p-5 center-content h-[90vh]">
+    <div className="h-full w-full center-content">
       <Image
         src={images.no_content}
         alt="no-content"

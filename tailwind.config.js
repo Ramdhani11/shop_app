@@ -19,7 +19,7 @@ module.exports = {
         smoothGrey: "#9d9d9d",
         myBlack: "#04170d",
         lightWhite: "#fafafa",
-        borderColor: "#f8f8f9",
+        borderColor: "#f4f4f5",
       },
     },
   },

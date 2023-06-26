@@ -16,7 +16,7 @@ export default function DashboardLayout({
       <Sidebar path={pathName} datasSidebar={datasSidebar} />
       <section className="w-[80vw] h-screen">
         <Navbar path={pathName} />
-        {children}
+        <div className="p-5 h-[90vh]">{children}</div>
       </section>
     </div>
   );
