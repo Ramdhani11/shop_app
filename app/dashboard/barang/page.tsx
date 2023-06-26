@@ -92,7 +92,7 @@ const page = () => {
           <h3 className="font-custom-medium text-[14px] text-grey">
             Menampilkan 1 - {barang.length} dari 100
           </h3>
-          <div>-</div>
+          <div>1</div>
         </div>
       </div>
     </>
