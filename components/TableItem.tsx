@@ -2,11 +2,11 @@ import { DataDummy } from "@/types";
 import React from "react";
 
 interface TableProps {
-  deleteHandler: any;
   data: DataDummy;
+  modal: any;
 }
 
-const TableItem = ({ deleteHandler, data }: TableProps) => {
+const TableItem = ({ data, modal }: TableProps) => {
   return (
     <tr className="border-b-[2px] border-borderColor">
       <td className="px-8 py-4 font-custom-medium text-[14px] ">
@@ -23,7 +23,7 @@ const TableItem = ({ deleteHandler, data }: TableProps) => {
       <td className="px-8 py-4 font-custom-medium text-[14px]">
         <button
           type="button"
-          onClick={(e)=>deleteHandler(e,data.id)}
+          onClick={() => modal(data.id)}
           className="bg-[#ffe9e4] text-[#e91c4d] font-custom-medium py-1 px-5 text-[14px] rounded-sm mr-[10px]"
         >
           Hapus

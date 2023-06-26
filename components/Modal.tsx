@@ -1,16 +1,18 @@
-import React, {
-  MouseEventHandler,
-  MouseEvent,
-  useState,
-  ChangeEventHandler,
-  ChangeEvent,
-} from "react";
+import { tambahBarang } from "@/app/redux/slices/barangSlice";
+import { RootState } from "@/app/redux/store";
+import { DataDummy } from "@/types";
+import React, { MouseEventHandler, SetStateAction, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 interface HandleProps {
   handlerModal: MouseEventHandler;
+  modal: any;
 }
 
-const Modal = ({ handlerModal }: HandleProps) => {
+const Modal = ({ handlerModal, modal }: HandleProps) => {
+  const dispatch = useDispatch();
+  const barang = useSelector((state: RootState) => state.barang.data);
+
   const [nama, setNama] = useState<string>();
   const [beli, setBeli] = useState<number>();
   const [jual, setJual] = useState<number>();
@@ -27,7 +29,21 @@ const Modal = ({ handlerModal }: HandleProps) => {
 
   const submitHandler = (e: any) => {
     e.preventDefault();
-    console.log({ nama, beli, jual, stok });
+    const filter = barang.map((data) => data.namaBarang);
+
+    if (filter.includes(`${nama}`)) {
+      alert(`${nama} sudah ada`);
+    } else {
+      dispatch(
+        tambahBarang({
+          namaBarang: nama,
+          hargaBeli: beli,
+          hargaJual: jual,
+          stok,
+        })
+      );
+      modal(false);
+    }
   };
 
   return (
@@ -80,7 +96,6 @@ const Modal = ({ handlerModal }: HandleProps) => {
               Upload file
             </h2>
             <input
-              required
               className="my-[5px] text-[12px] file:py-1 file:px-5  file:rounded-sm file:border-0 file:text-[12px] file:bg-secondary file:text-primary file:outlet-none border-0"
               type="file"
               onChange={fileHandler}
@@ -96,7 +111,7 @@ const Modal = ({ handlerModal }: HandleProps) => {
                 Batal
               </button>
               <button
-                type="submit"
+                type="button"
                 onClick={submitHandler}
                 className="bg-primary text-[#fff] font-custom-medium py-1 px-5 text-[14px] rounded-sm"
               >

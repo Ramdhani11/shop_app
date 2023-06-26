@@ -4,18 +4,26 @@ import React, { useState, MouseEvent, useEffect } from "react";
 import { BiSearchAlt2 } from "react-icons/bi";
 import { LuPackagePlus } from "react-icons/lu";
 import { Modal, ModalDelete, TableItem } from "@/components";
-import { dummyData } from "@/constant";
 import { DataDummy } from "@/types";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/app/redux/store";
+import { getDatas, hapusBarang } from "@/app/redux/slices/barangSlice";
 
 const page = () => {
+  const barang = useSelector((state: RootState) => state.barang.data);
+  const dispatch = useDispatch();
+
   const [showModal, setShowModal] = useState<boolean>(false);
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
-  const [datas, setDatas] = useState<DataDummy[]>([]);
+  const [selectedId, setSelectedId] = useState<number>();
 
-  const deleteHandler = (e: MouseEvent,id: number) => {
+  useEffect(() => {
+    dispatch(getDatas());
+  }, [dispatch]);
+
+  const modalDelete = (e: MouseEvent) => {
     e.preventDefault();
-    alert(id)
-    
+    setDeleteModal(!deleteModal);
   };
 
   const modalHandler = (e: MouseEvent) => {
@@ -23,14 +31,24 @@ const page = () => {
     setShowModal(!showModal);
   };
 
-  useEffect(() => {
-    setDatas(dummyData);
-  }, [datas]);
+  const deleteItem = () => {
+    dispatch(hapusBarang(selectedId));
+    setDeleteModal(!deleteModal);
+  };
+
+  const catchId = (id: number) => {
+    setSelectedId(id);
+    setDeleteModal(!deleteModal);
+  };
 
   return (
     <>
-      {deleteModal ? <ModalDelete handlerModal={deleteHandler} /> : null}
-      {showModal ? <Modal handlerModal={modalHandler} /> : null}
+      {deleteModal ? (
+        <ModalDelete handlerModal={modalDelete} deleted={deleteItem} />
+      ) : null}
+      {showModal ? (
+        <Modal modal={setShowModal} handlerModal={modalHandler} />
+      ) : null}
       <div className="bg-white h-full w-full rounded-[20px] overflow-hidden relative">
         <div className="p-[20px] bg-white flex justify-between items-center">
           <span>Total Barang (120)</span>
@@ -65,14 +83,14 @@ const page = () => {
             </tr>
           </thead>
           <tbody className="w-full">
-            {datas.map((data) => {
-              return <TableItem deleteHandler={deleteHandler} data={data} />;
+            {barang.map((data: DataDummy) => {
+              return <TableItem data={data} modal={catchId} />;
             })}
           </tbody>
         </table>
         <div className="border-t-[2px] border-borderColor p-[20px] bg-white w-full flex justify-between items-center absolute bottom-0">
           <h3 className="font-custom-medium text-[14px] text-grey">
-            Menampilkan 1 - 5 dari 100
+            Menampilkan 1 - {barang.length} dari 100
           </h3>
           <div>Haii</div>
         </div>
