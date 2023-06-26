@@ -1,14 +1,28 @@
 "use client";
-import Image from "next/image";
+import { auth, succesLogin } from "@/constant";
+import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
-import { MouseEvent } from "react";
+import { SyntheticEvent, useState } from "react";
 
 export default function Home() {
   const router = useRouter();
 
-  const submitHandler = (event: MouseEvent) => {
+  const [email, setEmail] = useState<string>();
+  const [password, setPassword] = useState<string>();
+
+  const submitHandler = (event: SyntheticEvent) => {
     event.preventDefault();
-    router.push("/dashboard");
+    if (email !== auth.email) {
+      alert("Email anda salah");
+      return false;
+    }
+    if (password !== auth.password) {
+      alert("Password anda salah");
+      return false;
+    }
+    Cookies.set("token", succesLogin.token);
+    Cookies.set("nama", succesLogin.nama);
+    router.replace("/dashboard");
   };
 
   return (
@@ -21,10 +35,13 @@ export default function Home() {
           <h5 className="text-center font-custom-medium my-4">
             Login ke akun anda{" "}
           </h5>
-          <form className="">
+          <form onSubmit={submitHandler}>
             <div className="flex flex-col">
               <label>Email</label>
               <input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
                 className="border-[1px] px-2 h-10 rounded-[5px] focus:login__form-focus"
                 type="email"
               />
@@ -33,17 +50,22 @@ export default function Home() {
               <label>Password</label>
               <div className="relative w-[100%]">
                 <input
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
                   className="border-[1px] px-2 h-10 rounded-[5px] focus:login__form-focus w-[100%]"
                   type="password"
                 />
-                <div className="text-right font-custom-medium text-primary text-[14px]">
+                <div
+                  onClick={() => alert("Belum tersedia")}
+                  className="cursor-pointer text-right font-custom-medium text-primary text-[14px]"
+                >
                   Lupa password ?
                 </div>
               </div>
             </div>
             <button
-              type="button"
-              onClick={submitHandler}
+              type="submit"
               className="h-10 rounded-[5px] w-full bg-primary my-4 text-white font-custom-bold"
             >
               Login

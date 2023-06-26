@@ -1,4 +1,5 @@
 "use client";
+import { Auth } from "@/auth";
 import { Navbar, Sidebar } from "@/components";
 import { dataSidebar } from "@/constant";
 import { usePathname } from "next/navigation";

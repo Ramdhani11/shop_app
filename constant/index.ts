@@ -47,3 +47,14 @@ export const dummyData: DataDummy[] = [
     stok: 3,
   },
 ];
+
+export const auth: { nama: string; email: string; password: string } = {
+  nama: "super admin",
+  email: "admin@gmail.com",
+  password: "admin123",
+};
+
+export const succesLogin: { nama: string; token: string } = {
+  nama: "super admin",
+  token: "ini token",
+};
