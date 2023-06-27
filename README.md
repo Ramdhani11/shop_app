@@ -1,5 +1,9 @@
 # Test Praktek
 
+### Login
+- Email : admin@gmail.com
+- Password : admin123
+
 ## Kebutuhan
 
 - Foto Barang ( X ) alasan dikarnakan susah untuk menyimpan sebuah gambar tanpa adanya server
